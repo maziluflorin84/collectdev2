@@ -1,6 +1,23 @@
 <div class="widget">
-    <h2>Login</h2>
+    <h2>Log in/Register</h2>
     <div class="inner">
-        Login form
+        <form action="login.php" method="post">
+            <ul id="login">
+                <li>
+                    Email:<br>
+                    <input type="email" name="email">
+                </li>
+                <li>
+                    Password:<br>
+                    <input type="password" name="password">
+                </li>
+                <li>
+                    <input type="submit" value="Log In">
+                </li>
+                <li>
+                    <a href="register.php">Register</a>
+                </li>
+            </ul>
+        </form>
     </div>
 </div>

@@ -53,56 +53,56 @@
       <ColNames>ID</ColNames>
       <UnderlyingIndexName>ID</UnderlyingIndexName>
     </key>
-    <column id="21" parent="10" name="ID">
+    <foreign-key id="21" parent="9" name="devices_fk2">
+      <ColNames>device_id</ColNames>
+      <RefSchemaName>collect_devices</RefSchemaName>
+      <RefTableName>devices</RefTableName>
+      <RefColNames>ID</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="22" parent="10" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="22" parent="10" name="title">
+    <column id="23" parent="10" name="title">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="23" parent="10" name="description">
+    <column id="24" parent="10" name="description">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="24" parent="10" name="user_id">
+    <column id="25" parent="10" name="user_id">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="25" parent="10" name="ID">
+    <index id="26" parent="10" name="ID">
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="26" parent="10" name="user_id">
+    <index id="27" parent="10" name="user_id">
       <ColNames>user_id</ColNames>
     </index>
-    <key id="27" parent="10" name="PRIMARY">
+    <key id="28" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="28" parent="10" name="ID">
+    <key id="29" parent="10" name="ID">
       <ColNames>ID</ColNames>
       <UnderlyingIndexName>ID</UnderlyingIndexName>
     </key>
-    <foreign-key id="29" parent="10" name="Actuator">
-      <ColNames>ID</ColNames>
+    <foreign-key id="30" parent="10" name="users_fk">
+      <ColNames>user_id</ColNames>
       <RefSchemaName>collect_devices</RefSchemaName>
-      <RefTableName>actuators</RefTableName>
-      <RefColNames>device_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="30" parent="10" name="Sensor">
-      <ColNames>ID</ColNames>
-      <RefSchemaName>collect_devices</RefSchemaName>
-      <RefTableName>sensors</RefTableName>
-      <RefColNames>device_id</RefColNames>
+      <RefTableName>users</RefTableName>
+      <RefColNames>ID</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
@@ -143,52 +143,52 @@
       <ColNames>ID</ColNames>
       <UnderlyingIndexName>ID</UnderlyingIndexName>
     </key>
-    <column id="39" parent="12" name="ID">
+    <foreign-key id="39" parent="11" name="devices_fk1">
+      <ColNames>device_id</ColNames>
+      <RefSchemaName>collect_devices</RefSchemaName>
+      <RefTableName>devices</RefTableName>
+      <RefColNames>ID</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="40" parent="12" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="40" parent="12" name="email">
+    <column id="41" parent="12" name="email">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="41" parent="12" name="password">
+    <column id="42" parent="12" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="42" parent="12" name="first_name">
+    <column id="43" parent="12" name="first_name">
       <Position>4</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="43" parent="12" name="last_name">
+    <column id="44" parent="12" name="last_name">
       <Position>5</Position>
-      <DataType>int(50)|0</DataType>
+      <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="44" parent="12" name="email">
+    <index id="45" parent="12" name="email">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="45" parent="12" name="PRIMARY">
+    <key id="46" parent="12" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="46" parent="12" name="email">
+    <key id="47" parent="12" name="email">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
-    <foreign-key id="47" parent="12" name="User ID">
-      <ColNames>ID</ColNames>
-      <RefSchemaName>collect_devices</RefSchemaName>
-      <RefTableName>devices</RefTableName>
-      <RefColNames>user_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
   </database-model>
 </dataSource>
