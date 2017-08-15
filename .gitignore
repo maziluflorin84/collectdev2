@@ -1,1 +1,10 @@
 .idea/
+_windows/
+codestyles/
+databaseDrivers.xml
+databaseSettings.xml
+dbnavigator.xml
+debugger.xml
+diff.xml
+editor.xml
+filetypes.xml
