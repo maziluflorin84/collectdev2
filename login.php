@@ -16,17 +16,20 @@ if (empty($_POST) === false) {
         $login = login($email, $password);
         if($login === false) {
             $errors[] = 'That email/password combination is incorrect';
-            print_r($errors);
         } else {
             $_SESSION['ID'] = $login;
             header('Location: index.php');
             exit();
         }
     }
+} else {
+    $errors[] = 'No data received';
 }
 include 'includes/overall/header.php';
+if (empty($errors) === false) {
 ?>
-Markup
+    <h2>You cannot login because:</h2>
 <?php
+    echo output_errors($errors);
+}
 include 'includes/overall/footer.php';
-?>
