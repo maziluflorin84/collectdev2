@@ -1,4 +1,16 @@
 <?php
+function register_user($register_data) {
+    global $db;
+    array_walk($register_data, 'array_sanitize');
+    $register_data['password'] = md5($register_data['password']);
+
+    $fields = '`' . implode('`, `', array_keys($register_data)) . '`';
+    $data = '\'' . implode('\', \'', $register_data) . '\'';
+
+    $stmt = $db->prepare("INSERT INTO `users` ($fields) VALUES ($data)");
+    $stmt->execute();
+}
+
 function user_data($user_id) {
     global $db;
     $data = array();
