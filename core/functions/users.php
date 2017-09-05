@@ -23,8 +23,8 @@ function user_data($user_id) {
         $stmt = $db->prepare("SELECT $fields FROM `users` WHERE `ID` = ?");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
-        $result = $stmt->get_result();
-        while ($data = mysqli_fetch_assoc($result)) {
+        $stmt->bind_result($data['email'], $data['first_name'], $data['last_name']);
+        while ($stmt->fetch()) {
             return $data;
         }
     }
