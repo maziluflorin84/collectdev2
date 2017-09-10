@@ -1,5 +1,6 @@
 <?php
 include "core/init.php";
+logged_in_redirect();
 
 if (empty($_POST) === false) {
     $email = $_POST['email'];

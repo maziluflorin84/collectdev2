@@ -1,4 +1,14 @@
 <?php
+function change_password($user_id, $password) {
+    global $db;
+    $user_id = (int)$user_id;
+    $password = md5($password);
+
+    $stmt = $db->prepare("UPDATE `users` SET `password` = ? WHERE `ID` = ?");
+    $stmt->bind_param('si', $password, $user_id);
+    $stmt->execute();
+}
+
 function register_user($register_data) {
     global $db;
     array_walk($register_data, 'array_sanitize');
@@ -23,8 +33,8 @@ function user_data($user_id) {
         $stmt = $db->prepare("SELECT $fields FROM `users` WHERE `ID` = ?");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
-        $result = $stmt->get_result();
-        while ($data = mysqli_fetch_assoc($result)) {
+        $stmt->bind_result($data['ID'], $data['email'], $data['password'], $data['first_name'], $data['last_name']);
+        while ($stmt->fetch()) {
             return $data;
         }
     }
