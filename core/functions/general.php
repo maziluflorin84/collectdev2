@@ -1,4 +1,17 @@
 <?php
+function logged_in_redirect() {
+    if (logged_in() === true) {
+        header('Location: index.php');
+    }
+}
+
+function protect_page() {
+    if (logged_in() === false) {
+        header('Location: protected.php');
+        exit();
+    }
+}
+
 function array_sanitize(&$item) {
     global $db;
     $item = $db->real_escape_string(htmlentities(trim($item), ENT_QUOTES, 'UTF-8'));
