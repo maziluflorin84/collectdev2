@@ -8,7 +8,7 @@ if (empty($_POST) === false) {
 
     if (empty($email) || empty($password)) {
         $errors[] = "You need to enter an email or password.";
-    } elseif (user_exists($email) === false) {
+    } elseif (email_exists($email) === false) {
         $errors[] = "We can\'t find that email";
     } else {
         if (strlen($password) > 32) {

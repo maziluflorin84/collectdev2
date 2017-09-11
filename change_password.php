@@ -28,7 +28,7 @@ include 'includes/overall/header.php';
     <h1>Change password</h1>
 
 <?php
-if (isset($_GET['success']) && empty($_GET['success'])) {
+if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
     echo '<p style="color: #008800; margin-top: 1em;">Password has been changed!</p>';
 } else {
     if (empty($_POST) === false && empty($errors) === true) {

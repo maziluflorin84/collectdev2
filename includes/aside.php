@@ -1,7 +1,7 @@
 <aside>
     <?php
     if(logged_in() === true){
-        include 'widgets/loggedin.php';
+        include 'widgets/logged_in.php';
     } else {
         include 'widgets/login.php';
     }
