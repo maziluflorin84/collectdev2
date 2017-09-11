@@ -1,4 +1,19 @@
 <?php
+function update_user($user_id, $update_data) {
+    global $db;
+    $user_id = (int)$user_id;
+    $update = array();
+    array_walk($update_data, 'array_sanitize');
+
+    foreach ($update_data as $field=>$data) {
+        $update[$field] = '`' . $field . '` = \'' . $data . '\'';
+    }
+
+    $stmt = $db->prepare("UPDATE `users` SET " . implode(', ', $update) . " WHERE `ID` = ?");
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();
+}
+
 function change_password($user_id, $password) {
     global $db;
     $user_id = (int)$user_id;
@@ -44,7 +59,7 @@ function logged_in() {
     return (isset($_SESSION['ID'])) ? true : false;
 }
 
-function user_exists($email) {
+function email_exists($email) {
     global $db;
     $email = sanitize($email);
     $result = $db->prepare("SELECT COUNT(`ID`) FROM `users` WHERE `email` = ?");

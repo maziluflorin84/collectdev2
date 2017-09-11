@@ -1,10 +1,9 @@
 <?php
 include 'core/init.php';
-logged_in_redirect();
-include 'includes/overall/header.php';
+protect_page();
 
 if (empty($_POST) === false) {
-    $required_fields = array('email', 'password', 'password_again', 'first_name');
+    $required_fields = array('email', 'first_name');
     foreach ($_POST as $key=>$value) {
         if (empty($value) && in_array($key, $required_fields) === true) {
             $errors[] = 'Fields marked with an asterisk are required';
@@ -14,70 +13,55 @@ if (empty($_POST) === false) {
     if (empty($errors) === true) {
         if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false) {
             $errors[] = 'A valid email address is required';
-        }
-        if (email_exists($_POST['email']) === true) {
+        } else if (email_exists($_POST['email']) === true && $user_data['email'] !== $_POST['email']) {
             $errors[] = 'An account registered with the email \'' . $_POST['email'] . '\' already exists';
-        }
-        if (strlen($_POST['password']) < 6) {
-            $errors[] = 'Your password must be at least 6 characters';
-        }
-        if ($_POST['password'] !== $_POST['password_again']) {
-            $errors[] = 'Passwords do not match';
         }
     }
 }
+
+include 'includes/overall/header.php';
 ?>
 
-<h1>Register</h1>
+    <h1>Settings</h1>
 
 <?php
 if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
-    echo '<p style="color: #008800; margin-top: 1em;">Account has been created!</p>';
+    echo '<p style="color: #008800; margin-top: 1em;">Your details have been updated!</p>';
 } else {
     if (empty($_POST) === false && empty($errors) === true) {
-        $register_data = array(
+        $update_data = array(
             'email' => $_POST['email'],
-            'password' => $_POST['password'],
             'first_name' => $_POST['first_name'],
             'last_name' => $_POST['last_name']
         );
-
-        register_user($register_data);
-        header('Location: register.php?success');
+        update_user($session_user_id, $update_data);
+        header('Location:settings.php?success');
         exit();
     } else if (empty($errors) === false) {
         echo output_errors($errors);
     }
-?>
+    ?>
 
     <form action="" method="post">
         <ul>
             <li>
                 Email*:<br>
-                <input type="email" name="email">
-            </li>
-            <li>
-                Password*:<br>
-                <input type="password" name="password">
-            </li>
-            <li>
-                Password again*:<br>
-                <input type="password" name="password_again">
+                <input type="email" name="email" value="<?php echo $user_data['email']; ?>">
             </li>
             <li>
                 First Name*:<br>
-                <input type="text" name="first_name">
+                <input type="text" name="first_name" value="<?php echo $user_data['first_name']; ?>">
             </li>
             <li>
                 Last Name:<br>
-                <input type="text" name="last_name">
+                <input type="text" name="last_name" value="<?php echo $user_data['last_name']; ?>">
             </li>
             <li>
-                <input type="submit" value="Register">
+                <input type="submit" value="Update">
             </li>
         </ul>
     </form>
-    * required
+
 <?php
 }
 include 'includes/overall/footer.php';
