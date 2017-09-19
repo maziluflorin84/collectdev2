@@ -27,6 +27,7 @@ function change_password($user_id, $password) {
 function register_user($register_data) {
     global $db;
     array_walk($register_data, 'array_sanitize');
+    $password = $register_data['password'];
     $register_data['password'] = md5($register_data['password']);
 
     $fields = '`' . implode('`, `', array_keys($register_data)) . '`';
@@ -34,6 +35,7 @@ function register_user($register_data) {
 
     $stmt = $db->prepare("INSERT INTO `users` ($fields) VALUES ($data)");
     $stmt->execute();
+    email($register_data['email'],'Account created on CollectDev!', "Hello " . $register_data['first_name'] . "\n\nYou have just created an account with the following login credentials:\nemail = " . $register_data['email'] . "\npassword = " . $password . "\n\nIf you have not requested an account with this email address, please send us an email at florin.mazilu@info.uaic.ro\n\nHave a great day!\nCollectDev");
 }
 
 function user_data($user_id) {
