@@ -1,4 +1,16 @@
 <?php
+function recover($email) {
+    $email = sanitize($email);
+
+    $first_name = user_first_name(user_id_from_email($email));
+
+    $generated_password = substr(md5(rand(999, 999999)), 0, 14);
+
+    change_password(user_id_from_email($email), $generated_password);
+
+    email($email, 'Your CollectDev password recovery', "Hello " . $first_name . "\nYour new password is: " . $generated_password . "\n\n Please log in and change it!\n\n CollectDev");
+}
+
 function update_user($user_id, $update_data) {
     global $db;
     $user_id = (int)$user_id;
@@ -9,7 +21,9 @@ function update_user($user_id, $update_data) {
         $update[$field] = '`' . $field . '` = \'' . $data . '\'';
     }
 
-    $stmt = $db->prepare("UPDATE `users` SET " . implode(', ', $update) . " WHERE `ID` = ?");
+    $updating = implode(', ', $update);
+
+    $stmt = $db->prepare("UPDATE `users` SET $updating WHERE `ID` = ?");
     $stmt->bind_param('i', $user_id);
     $stmt->execute();
 }
@@ -36,6 +50,18 @@ function register_user($register_data) {
     $stmt = $db->prepare("INSERT INTO `users` ($fields) VALUES ($data)");
     $stmt->execute();
     email($register_data['email'],'Account created on CollectDev!', "Hello " . $register_data['first_name'] . "\n\nYou have just created an account with the following login credentials:\nemail = " . $register_data['email'] . "\npassword = " . $password . "\n\nIf you have not requested an account with this email address, please send us an email at florin.mazilu@info.uaic.ro\n\nHave a great day!\nCollectDev");
+}
+
+function user_first_name($user_id) {
+    global $db;
+    $user_id = (int)$user_id;
+    $stmt = $db->prepare("SELECT `first_name` FROM `users` WHERE `ID` = ?");
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();
+    $stmt->bind_result($first_name);
+    while ($stmt->fetch()) {
+        return $first_name;
+    }
 }
 
 function user_data($user_id) {
