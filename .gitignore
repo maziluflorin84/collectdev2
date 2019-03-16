@@ -8,3 +8,6 @@ debugger.xml
 diff.xml
 editor.xml
 filetypes.xml
+.buildpath
+.project
+.settings/
